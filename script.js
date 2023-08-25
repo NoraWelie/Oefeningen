@@ -27,7 +27,7 @@ function draw() {
   // teken de boom
   fill('sienna');
   rect(300,250,40,130);
-  fill('green');
+  fill('forestgreen');
   ellipse(320,230,100,150)
   // Als je een cirkel wilt tekenen met diameter 300 kun je ellipse(0,0,300) gebruiken.
   // Als je een ellipse wilt maken met breedte 300 en hoogte 500, dan moet je een parameter toevoegen: ellipse(0,0,300,500).
