@@ -1,35 +1,18 @@
 function setup() {
-  canvas = createCanvas(900,200);
-  background('lavender');
+  canvas = createCanvas(450,450);
   canvas.parent();
-  noLoop();
+  textFont("Verdana");
+  textSize(14);
+  noStroke();
+  background('lavender');
+  //noLoop();
 }
 
 function draw() {
-  noStroke();
-  fill('thistle');
-  translate(50,50);
-  rect(0,0,100,100);
-  
-  translate(140,0);
-  rect(0,0,100,100);
-  translate(140,0);
-  rect(0,0,100,100);
-  
-  translate(140,0);
-  // BEGIN aanpassing
-  push();
-  
-  stroke('cornsilk');
-  strokeWeight(20);
-  fill('teal');
-  translate(0,40);  
-  rect(0,0,100,100);  
-  // EINDE aanpassing
-  
-  translate(140,0);
-  rect(0,0,100,100);
-  pop();
-  translate(140,0);
-  rect(0,0,100,100);  
+  fill('wheat');
+  rect(0,0,width,30)
+  fill('black');
+  text("mouseX:" + round(mouseX) + " mouseY:"+round(mouseY),10,20);
+  fill('indianred');
+  ellipse(mouseX, mouseY,10);
 }
