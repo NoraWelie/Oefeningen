@@ -1,18 +1,27 @@
+var horizontaalA = 120;
+var horizontaalB = 500;
+var verticaal = 170;
+
 function setup() {
-  canvas = createCanvas(450,450);
+  canvas = createCanvas(1000,300);
   canvas.parent();
   textFont("Verdana");
-  textSize(14);
-  noStroke();
-  background('lavender');
-  //noLoop();
+  textSize(30);
+  stroke('white');
+  strokeWeight(10);
+  frameRate(50);
 }
 
 function draw() {
-  fill('wheat');
-  rect(0,0,width,30)
-  fill('black');
-  text("mouseX:" + round(mouseX) + " mouseY:"+round(mouseY),10,20);
-  fill('indianred');
-  ellipse(mouseX, mouseY,10);
+  background('orange');
+  fill('white');
+  rect(0,0,width,40);
+  fill('black');  
+  text("positie A = " + horizontaalA + " positie B = " + horizontaalB,10,30);
+  fill('dodgerblue');
+  ellipse(horizontaalA,verticaal,200);
+  fill('darkred');
+  ellipse(horizontaalB,verticaal,200);
+  horizontaalA += 2;
+  horizontaalB += 1;
 }
