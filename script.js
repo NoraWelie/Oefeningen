@@ -1,28 +1,31 @@
-var xJOS;
-var yJOS;
+var xJOS = 225;
+var yJOS = 375;
+var snelheidJOS = 17
 
 function setup() {
   canvas = createCanvas(450,450);
   canvas.parent();
   textFont("Verdana");
   textSize(14);
+  frameRate(20);
 }
 
 function draw() {
   background('lavender');
   fill('black');
-  text("xJOS: " + round(xJOS) + " (mouseX:" + round(mouseX) + ")",10,20);
-  text("yJOS: " + round(yJOS) + " (mouseY:" + round(mouseY) + ")",260,20);
+  yJOS-=snelheidJOS;
+  snelheidJOS-=0.5;
   
-  xJOS = constrain(mouseX,75,375);
-  yJOS = constrain(mouseY,75,375)
+  xJOS=constrain(xJOS,75,width-75);
+  yJOS=constrain(yJOS,75,height-75);
+  text("x = " + round(xJOS) + " y = " + yJOS + " snelheid =" + snelheidJOS,10,20);
   
   translate(xJOS,yJOS);
 
   // in de volgende regels wordt JOS getekend
 
   push();
-  scale(0.5);
+  scale(1);  
   noStroke();
   fill('indianred');
   ellipse(0,0,150);
@@ -40,5 +43,5 @@ function draw() {
   arc(0, 40, 80, 40, 0, PI, CHORD);
   pop();
   // einde tekenen JOS
-  
+
 }
