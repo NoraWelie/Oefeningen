@@ -1,47 +1,56 @@
-var xJOS = 225;
-var yJOS = 375;
-var snelheidJOS = 17
+var schaal;
 
 function setup() {
-  canvas = createCanvas(450,450);
+  canvas = createCanvas(1000,300);
   canvas.parent();
-  textFont("Verdana");
-  textSize(14);
-  frameRate(20);
+  noStroke();
 }
 
 function draw() {
-  background('lavender');
-  fill('black');
-  yJOS-=snelheidJOS;
-  snelheidJOS-=0.5;
-  
-  xJOS=constrain(xJOS,75,width-75);
-  yJOS=constrain(yJOS,75,height-75);
-  text("x = " + round(xJOS) + " y = " + yJOS + " snelheid =" + snelheidJOS,10,20);
-  
-  translate(xJOS,yJOS);
+  background('cornflowerblue');
+  schaal = 1 + mouseY / height;
+  tekenZon(mouseX,schaal);
+  // teken de grond
+  fill('wheat');
+  rect(0,250,width,height - 250);  
 
-  // in de volgende regels wordt JOS getekend
 
+  tekenBoom(700);
+  tekenBoom(900);
+  tekenBoom(50);
+  tekenBoom(150);
+  tekenBoom(250);
+
+  tekenHuis();
+}
+
+function tekenHuis() {
   push();
-  scale(1);  
+  strokeWeight(4);
+  stroke('darkgrey');
+  fill('lightgray');
+  rect(100,180,100,100);
+  fill('gray');
+  triangle(100,180,200,180,150,100);
   noStroke();
-  fill('indianred');
-  ellipse(0,0,150);
-  fill('slategray');
-  ellipse(-20,-30,50);
-  ellipse(20,-30,50);
-  fill('white');
-  ellipse(-20,-25,20,40);
-  ellipse(20,-25,20,40);
-  fill('orange');
-  ellipse(0,10,50);
-  stroke('slategray');
-  strokeWeight(10);
-  fill('white');
-  arc(0, 40, 80, 40, 0, PI, CHORD);
+  rect(120,230,30,50);
   pop();
-  // einde tekenen JOS
+}
 
+function tekenBoom(x) {
+  push();
+  noStroke();
+  fill('sienna');
+  rect(x,130,40,130);
+  fill('olive');
+  ellipse(x + 20,130,100,150);
+  pop();
+}
+
+function tekenZon(x,s) {
+  push()
+  fill('red');
+  scale(s);
+  ellipse(x,200,300,300);
+  pop();
 }
