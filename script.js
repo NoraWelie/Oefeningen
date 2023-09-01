@@ -1,56 +1,47 @@
-var schaal;
+var zoomNiveau = 3;
 
 function setup() {
-  canvas = createCanvas(1000,300);
+  canvas = createCanvas(450,450);
   canvas.parent();
+  textFont("Verdana");
+  textSize(19);
   noStroke();
+  frameRate(10);
 }
 
 function draw() {
-  background('cornflowerblue');
-  schaal = 1 + mouseY / height;
-  tekenZon(mouseX,schaal);
-  // teken de grond
-  fill('wheat');
-  rect(0,250,width,height - 250);  
-
-
-  tekenBoom(700);
-  tekenBoom(900);
-  tekenBoom(50);
-  tekenBoom(150);
-  tekenBoom(250);
-
-  tekenHuis();
+  background('lavender');
+  fill('white');
+  rect(0,0,width,30);
+  fill('black');  
+  text("Druk op een toets | huidig zoomniveau: " + round(10*zoomNiveau) / 10,5,20);
+  if (mouseIsPressed == true) {
+    zoomNiveau += 0.1;
+  }
+  else {
+    zoomNiveau -= 0.1;
+  }
+  tekenJos(width / 2,height / 2,zoomNiveau);
 }
 
-function tekenHuis() {
+function tekenJos(x,y,s) {
   push();
-  strokeWeight(4);
-  stroke('darkgrey');
-  fill('lightgray');
-  rect(100,180,100,100);
-  fill('gray');
-  triangle(100,180,200,180,150,100);
+  translate(x,y);
+  scale(s); 
   noStroke();
-  rect(120,230,30,50);
-  pop();
-}
-
-function tekenBoom(x) {
-  push();
-  noStroke();
-  fill('sienna');
-  rect(x,130,40,130);
-  fill('olive');
-  ellipse(x + 20,130,100,150);
-  pop();
-}
-
-function tekenZon(x,s) {
-  push()
-  fill('red');
-  scale(s);
-  ellipse(x,200,300,300);
+  fill('indianred');
+  ellipse(0,0,50);
+  fill('slategray');
+  ellipse(-7,-10,17);
+  ellipse(7,-10,17);
+  fill('white');
+  ellipse(-7,-8,7,13);
+  ellipse(7,-8,7,13);
+  fill('orange');
+  ellipse(0,3,17);
+  stroke('slategray');
+  strokeWeight(3);
+  fill('white');
+  arc(0, 13, 26, 13, 0, PI, CHORD);
   pop();
 }
