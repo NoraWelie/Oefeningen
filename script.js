@@ -1,47 +1,42 @@
-var zoomNiveau = 3;
+var x = 50;
+var y = 50;
 
 function setup() {
-  canvas = createCanvas(450,450);
+  canvas = createCanvas(1000,400);
   canvas.parent();
   textFont("Verdana");
-  textSize(19);
+  textSize(14);
   noStroke();
-  frameRate(10);
+  frameRate(50);
 }
 
 function draw() {
-  background('lavender');
-  fill('white');
-  rect(0,0,width,30);
-  fill('black');  
-  text("Druk op een toets | huidig zoomniveau: " + round(10*zoomNiveau) / 10,5,20);
-  if (mouseIsPressed == true) {
-    zoomNiveau += 0.1;
+  background('olive');
+  
+  if (keyIsDown(LEFT_ARROW)) {
+    x -= 5;
+  }
+  if (keyIsDown(RIGHT_ARROW)) {
+    x += 5;
+  }
+  if (keyIsDown(UP_ARROW)) {
+    y -= 5;
+  }
+  if (keyIsDown(DOWN_ARROW)) {
+    y += 5;
+  }
+  x = constrain(x,0,width - 100);
+  y = constrain(y,0,height - 100);
+
+  if (x >= 700 && x <= 875 && y >= 75 && y <= 225) {
+    fill('chartreuse');
   }
   else {
-    zoomNiveau -= 0.1;
+    fill('darkkhaki');
   }
-  tekenJos(width / 2,height / 2,zoomNiveau);
-}
-
-function tekenJos(x,y,s) {
-  push();
-  translate(x,y);
-  scale(s); 
-  noStroke();
-  fill('indianred');
-  ellipse(0,0,50);
-  fill('slategray');
-  ellipse(-7,-10,17);
-  ellipse(7,-10,17);
-  fill('white');
-  ellipse(-7,-8,7,13);
-  ellipse(7,-8,7,13);
-  fill('orange');
-  ellipse(0,3,17);
-  stroke('slategray');
-  strokeWeight(3);
-  fill('white');
-  arc(0, 13, 26, 13, 0, PI, CHORD);
-  pop();
+  
+  rect(800,175,75,50);
+  
+  fill('moccasin');
+  rect(x,y,100,100);   
 }
