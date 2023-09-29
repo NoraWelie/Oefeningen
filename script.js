@@ -1,49 +1,81 @@
-class Knikker {
-  constructor() {
-    this.diameter = 40;
-    this.straal = this.diameter / 2;
-    this.x = random(this.straal,canvas.width - this.straal);
-    this.y = random(this.straal,canvas.height - this.straal);
-    this.snelheidX = random(1,10);
-    this.snelheidY = random(1,10);
+class Bal {
+  constructor(x,y) {
+  this.diameter = 40;
+  this.straal = 20;
+  this.x = x;
+  this.y = y;
+  this.R = random(0,255);
+  this.G = random(0,255);
+  this.B = random(0,255);
+  this.alpha = 0.8;
+  this.snelheid = 0;
+  this.aantalKerenGestuiterd = 0;
+  this.geraakt = false;
   }
-
+  
   beweeg() {
-    this.x += this.snelheidX;
-    this.y += this.snelheidY;
-    
-    if (this.x < this.straal || this.x > canvas.width - this.straal) {
-      this.snelheidX *= -1;
-    }
-    if (this.y < this.straal || this.y > canvas.height - this.straal) {
-      this.snelheidY *= -1;
+    this.snelheid += 9.81 / 15;
+    this.y += this.snelheid;
+    if (this.y >= canvas.height - this.straal) {
+      this.snelheid *= -1;
+      this.y = canvas.height - this.straal;
+      this.aantalKerenGestuiterd++;
     }
   }
   
   teken() {
-    fill(255,255,255,1);
+    push();
+    noStroke();
+    fill(this.R,this.G,this.B,this.alpha);
     ellipse(this.x,this.y,this.diameter);
+    pop();
   }
 }
 
-var knikkerVerzameling = [];
+var ballenArray = [];
+var erIsNogGeenBalGestuiterd = true;
+var score = 0;
 
 function setup() {
-  canvas = createCanvas(1000,300);
+  canvas = createCanvas(450,450);
   canvas.parent();
-  frameRate(50);
   colorMode(RGB,255,255,255,1);
-  background(0,0,75,1);
-  noStroke();
-  for (var k = 0; k < 10; k++) {
-    knikkerVerzameling.push(new Knikker());
-  }
+  frameRate(15);
+  textFont("Verdana");
+  textSize(24);
+  ballenArray[0] = new Bal(225,50);
+
 }
 
 function draw() {
-  background(0,0,75,0.2);
-  for (var i = 0; i < knikkerVerzameling.length; i++) {
-    knikkerVerzameling[i].beweeg();
-    knikkerVerzameling[i].teken();
-  } 
+  background('salmon');
+  text("N:" + ballenArray.length+" score:" + score,5,24);
+  if (mouseIsPressed && erIsNogGeenBalGestuiterd) {
+    ballenArray.push(new Bal(mouseX,mouseY));
+  }
+  
+  for (var b = 0;b < ballenArray.length;b++) {
+    ballenArray[b].beweeg();
+    ballenArray[b].teken();
+    if (ballenArray[b].aantalKerenGestuiterd == 1) {
+      erIsNogGeenBalGestuiterd = false;
+      if (dist(mouseX,mouseY,ballenArray[b].x,ballenArray[b].y) <= ballenArray[b].straal && mouseIsPressed && ballenArray[b].geraakt == false) {
+        score++;
+        ballenArray[b].geraakt = true;
+        ballenArray[b].alpha = 0;
+      }
+    }
+    if (ballenArray[b].aantalKerenGestuiterd == 2) {
+      if (ballenArray.length == score) {
+        background('green');
+        text("Het is je gelukt! Je score is "+score+" :)",5,24);
+        noLoop();
+      }
+      else {
+        background('red');
+        text("Helaas. Je hebt verloren :(",5,24);
+        noLoop();
+      }
+    }
+  }
 }
